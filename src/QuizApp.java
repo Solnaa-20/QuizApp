@@ -296,8 +296,7 @@ public class QuizApp {
 
             container.add(Box.createVerticalStrut(40));   // top padding
 
-            QuestionCard card = new QuestionCard(numbering+ ". " + question.getQuestionText(),   // question text
-                    question.getOptions());
+            QuestionCard card = new QuestionCard(numbering+ ". " + question.getQuestionText(),question.getOptions());
 
             container.add(card);
             container.add(Box.createVerticalStrut(40));
