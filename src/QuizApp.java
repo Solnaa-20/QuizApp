@@ -384,9 +384,18 @@ public class QuizApp {
         questionPanel.add(scroll, BorderLayout.CENTER);
 
         submitButton.addActionListener(e -> {
-            int score=calculateScore();
-            ResultsScreen(score);
-            saveScoreToDatabase(score);
+            for (int i = 0; i < questionCards.size(); i++) {
+                QuestionCard card = questionCards.get(i);
+                String userAnswer = card.getSelectedAnswer();
+                quizManager.answerQuestion(i, userAnswer);
+            }
+
+            // Save score to database
+            quizManager.recordScore();
+
+            int finalScore = quizManager.getCurrentScore();
+            ResultsScreen(finalScore);
+
             cardLayout.show(frame.getContentPane(), "Result");
         });
     }
