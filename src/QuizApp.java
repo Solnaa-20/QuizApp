@@ -97,6 +97,9 @@ public class QuizApp {
 // QUESTION CARD
     class QuestionCard extends JPanel {
 
+        private String selectedAnswer = null;
+        private Questions questionObject;
+
         public QuestionCard(String question, String[] options) {
 
             setOpaque(false);
