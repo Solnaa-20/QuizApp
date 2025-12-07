@@ -180,7 +180,8 @@ public class QuizApp {
 
             }
 
-            }
+            add(background);
+        }
 
             add(bg);
         }
