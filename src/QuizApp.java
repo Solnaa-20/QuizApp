@@ -120,9 +120,9 @@ public class QuizApp {
                     g.fillRoundRect(0, 0, getWidth(), getHeight(), 25, 25);
                 }
             };
-            bg.setOpaque(false);
-            bg.setLayout(new BoxLayout(bg, BoxLayout.Y_AXIS));
-            bg.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
+            background.setOpaque(false);
+            background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
+            background.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
 
 
             // QUESTION TITLE
