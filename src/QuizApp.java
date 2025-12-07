@@ -357,6 +357,22 @@ public class QuizApp {
         );
     }
 
+    //Results screen
+    public void ResultsScreen(int score){
+
+        resultPanel.removeAll();
+        resultPanel.setLayout(new BorderLayout());
+        resultPanel.setBackground(new Color(20, 126, 21));
+
+        JLabel resultTitle = new JLabel("Quiz Results");
+        resultTitle.setFont(new Font("Times New Romans", Font.BOLD, 45));
+        resultTitle.setForeground(Color.WHITE);
+        resultTitle.setOpaque(false);
+        resultTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+    }
+
     // STYLE FLAT BUTTON
     private void styleButton(JButton button) {
         button.setFont(new Font("SansSerif", Font.BOLD, 20));
