@@ -18,6 +18,16 @@ public class QuizApp {
     // Button difficulty
     private Difficulty selectedDifficulty;
 
+    //Username
+    private String userName;
+
+    //Database
+    private PersistenceManager dbase = new PersistenceManager();
+    private UserScoreRecord userScoreRecord;
+
+    //Track every card created
+    private List<QuestionCard> questionCards = new ArrayList<>();
+
     // CONSTRUCTOR
     public QuizApp() {
 
