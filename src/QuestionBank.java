@@ -273,8 +273,16 @@ public class QuestionBank {
         return trueFalseQuestions;
     }
 
-    static {
-        loadQuestions(); // Fills the list before it is called
+    public static List<Questions> loadAllQuestions() {
+        List<Questions> list = new ArrayList<>();
+
+        // Add all MCQ questions
+        list.addAll(getMultipleChoiceQuestions());
+
+        // Add all True / False questions
+        list.addAll(getTrueFalseQuestions());
+
+        return list;
     }
 
 
