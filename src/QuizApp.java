@@ -402,6 +402,46 @@ public class QuizApp {
         resultTitle.setOpaque(false);
         resultTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Center container
+        JPanel content = new JPanel();
+        content.setOpaque(false);
+        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+
+        // Username message
+        JLabel userLabel = new JLabel("Well done, " + userName + "!");
+        userLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        userLabel.setForeground(Color.WHITE);
+        userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Score message
+        JLabel scoreLabel = new JLabel("Your Score: " + score + "/20");
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 35));
+        scoreLabel.setForeground(Color.YELLOW);
+        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Back button
+        JButton backButton = new JButton("Back to Start");
+        styleButton(backButton);
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        backButton.addActionListener(e -> {
+            cardLayout.show(frame.getContentPane(), "Start");
+        });
+
+        // Add components
+        content.add(Box.createVerticalStrut(40));
+        content.add(resultTitle);
+        content.add(Box.createVerticalStrut(30));
+        content.add(userLabel);
+        content.add(Box.createVerticalStrut(20));
+        content.add(scoreLabel);
+        content.add(Box.createVerticalStrut(40));
+        content.add(backButton);
+
+        resultPanel.add(content, BorderLayout.CENTER);
+        resultPanel.revalidate();
+        resultPanel.repaint();
+
 
     }
 
