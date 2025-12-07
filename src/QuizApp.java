@@ -174,9 +174,11 @@ public class QuizApp {
                 row.add(optLabel);
                 row.add(Box.createHorizontalGlue());
 
-                bg.add(row);
-                bg.add(Box.createVerticalStrut(1));  // spacing below question
-                bg.add(Box.createVerticalStrut(optionSpacing));
+                background.add(row);
+                background.add(Box.createVerticalStrut(1));
+                background.add(Box.createVerticalStrut(optionSpacing));
+
+            }
 
             }
 
