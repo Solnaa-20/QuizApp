@@ -279,6 +279,7 @@ public class QuizApp {
                         "Please enter your username!",
                         "Missing Name",
                         JOptionPane.WARNING_MESSAGE);
+                return;
             }
             userName = username; //Save the name
 
@@ -386,6 +387,7 @@ public class QuizApp {
             int score=calculateScore();
             ResultsScreen(score);
             saveScoreToDatabase(score);
+            cardLayout.show(frame.getContentPane(), "Result");
         });
     }
 
@@ -472,7 +474,7 @@ public class QuizApp {
             Questions question = card.getQuestionObject();
             String userAnswer = card.getSelectedAnswer();
 
-            if(userAnswer.equals("")){continue;}
+            if(userAnswer==null){continue;}
             if(question.checkAnswer(userAnswer)){score++;}
         }
         return score;
