@@ -134,8 +134,8 @@ public class QuizApp {
             qLabel.setOpaque(false);
             qLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            bg.add(qLabel);
-            bg.add(Box.createVerticalStrut(10));
+            background.add(qLabel);
+            background.add(Box.createVerticalStrut(10));
 
 
             // ANSWER OPTIONS
