@@ -162,6 +162,7 @@ public class QuizApp {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         btn.doClick();
+                        selectedAnswer = optLabel.getText();
                     }
                 });
 
