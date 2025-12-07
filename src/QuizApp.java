@@ -183,92 +183,116 @@ public class QuizApp {
             add(background);
         }
 
-            add(bg);
+        public String getSelectedAnswer() {
+            return selectedAnswer;
+        }
+        public Questions getQuestionObject() {
+            return questionObject;
+        }
+        public void setQuestionObject(Questions q) {
+            this.questionObject = q;
         }
     }
 
     // START SCREEN
     public void StartScreen() {
 
-        startPanel.setLayout(new GridBagLayout());
-        startPanel.setBackground(new Color(20, 126, 21));
+        startPanel.removeAll();
+        startPanel.setLayout(new BorderLayout());
+        startPanel.setBackground(new Color(20, 126, 21)); // green background
 
         JPanel content = new JPanel();
-        content.setOpaque(false);
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+        content.setOpaque(false);
+        content.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
-        JLabel quizTitle = new JLabel("Climate Change Quiz Application");
-        quizTitle.setFont(new Font("Arial", Font.BOLD, 55));
-        quizTitle.setForeground(Color.WHITE);
-        quizTitle.setOpaque(false);
-        quizTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Title
+        JLabel titleLabel = new JLabel("🌍 Climate Change Quiz 🌍");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Subtitle
+        JLabel subtitleLabel = new JLabel("Test your knowledge & learn something new!");
+        subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        subtitleLabel.setForeground(Color.WHITE);
+        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitle = new JLabel("Test your knowledge on climate change and learn something new!");
-        subtitle.setFont(new Font("Arial", Font.ITALIC, 30));
-        subtitle.setForeground(Color.WHITE);
-        subtitle.setOpaque(false);
-        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //Username field and label
+        JLabel usernameLabel = new JLabel("Enter username:");
+        usernameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        usernameLabel.setForeground(Color.WHITE);
+        usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel centerCard = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(Color.WHITE);
-                g.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
-            }
-        };
-        centerCard.setOpaque(false);
-        centerCard.setPreferredSize(new Dimension(400, 600));
-        centerCard.setLayout(new BoxLayout(centerCard, BoxLayout.Y_AXIS));
+        JTextField usernameField = new JTextField();
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 20));
+        usernameField.setMaximumSize(new Dimension(250,35));
+        usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel title = new JLabel("Welcome to the Quiz");
-        title.setFont(new Font("Arial", Font.BOLD, 24));
-        title.setForeground(Color.BLACK);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        // Start button
         JButton startButton = new JButton("Start Quiz");
         styleButton(startButton);
         addHoverEffect(startButton);
+        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+
+        // Difficulty label
+        JLabel difficultyLabel = new JLabel("Select Difficulty:");
+        difficultyLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        difficultyLabel.setForeground(Color.WHITE);
+        difficultyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Difficulty dropdown
         String[] levels = {"EASY", "HARD"};
         JComboBox<String> difficulty = new JComboBox<>(levels);
-        difficulty.setFont(new Font("SansSerif", Font.BOLD, 18));
+        difficulty.setFont(new Font("Arial", Font.BOLD, 18));
         difficulty.setForeground(Color.WHITE);
         difficulty.setBackground(new Color(0, 150, 136));
-        difficulty.setMaximumSize(new Dimension(200, 45));
+        difficulty.setMaximumSize(new Dimension(250, 40));
         difficulty.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        centerCard.add(Box.createVerticalStrut(20));
-        centerCard.add(title);
-        centerCard.add(Box.createVerticalStrut(30));
-        centerCard.add(startButton);
-        centerCard.add(Box.createVerticalStrut(30));
-        centerCard.add(difficulty);
-        centerCard.add(Box.createVerticalStrut(30));
 
-        content.add(quizTitle);
+        // Add spacing + components
+        content.add(titleLabel);
+        content.add(Box.createVerticalStrut(15));
+        content.add(subtitleLabel);
+        content.add(Box.createVerticalStrut(15));
+        content.add(usernameLabel);
+        content.add(Box.createVerticalStrut(15));
+        content.add(usernameField);
+        content.add(Box.createVerticalStrut(35));
+        content.add(difficultyLabel);
         content.add(Box.createVerticalStrut(10));
-        content.add(subtitle);
-        content.add(Box.createVerticalStrut(30));
-        content.add(centerCard);
+        content.add(difficulty);
+        content.add(Box.createVerticalStrut(40));
+        content.add(startButton);
 
-        startPanel.add(content);
+        startPanel.add(content, BorderLayout.CENTER);
 
+        // START BUTTON ACTION
         startButton.addActionListener(e -> {
 
+            String username = usernameField.getText().trim();
+
+            if(username.isEmpty()){
+                JOptionPane.showMessageDialog(frame,
+                        "Please enter your username!",
+                        "Missing Name",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+            userName = username; //Save the name
+
             String difficultyValue = difficulty.getSelectedItem().toString();
-            if(difficultyValue.equals("EASY")){
-                selectedDifficulty = Difficulty.EASY;
-            }
-            else if(difficultyValue.equals("HARD")){
-                selectedDifficulty = Difficulty.HARD;
-            }
+            selectedDifficulty = difficultyValue.equals("EASY") ? Difficulty.EASY : Difficulty.HARD;
+
             QuestionScreen();
             cardLayout.show(frame.getContentPane(), "Question");
         });
 
-        }
+        startPanel.revalidate();
+        startPanel.repaint();
+    }
+
 
     // QUESTION SCREEN
     public void QuestionScreen() {
@@ -316,9 +340,12 @@ public class QuizApp {
         for(int i=0;i<10;i++){
             MultipleChoiceQuestion question = filteredMcq.get(i);
 
-            container.add(Box.createVerticalStrut(40));   // top padding
+            container.add(Box.createVerticalStrut(40));
 
             QuestionCard card = new QuestionCard(numbering+ ". " + question.getQuestionText(),question.getOptions());
+
+            card.setQuestionObject(question);
+            questionCards.add(card);
 
             container.add(card);
             container.add(Box.createVerticalStrut(40));
@@ -332,29 +359,34 @@ public class QuizApp {
             QuestionCard card1 = new QuestionCard(numbering+ ". " + question1.getQuestionText(),   // question text
                     question1.getTAndFOptions());
 
+            card1.setQuestionObject(question1);
+            questionCards.add(card1);
+
             container.add(card1);
             container.add(Box.createVerticalStrut(40));
             numbering++;
         }
 
-        JButton submitBtn = new JButton("Submit Quiz");
-        styleButton(submitBtn);
-        addHoverEffect(submitBtn);
-        submitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton submitButton = new JButton("Submit Quiz");
+        styleButton(submitButton);
+        addHoverEffect(submitButton);
+        submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        container.add(submitBtn);
+        container.add(submitButton);
         container.add(Box.createVerticalStrut(30));
 
         JScrollPane scroll = new JScrollPane(container);
         scroll.setBorder(null);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.getVerticalScrollBar().setUnitIncrement(20);
 
         questionPanel.setLayout(new BorderLayout());
         questionPanel.add(scroll, BorderLayout.CENTER);
 
-        submitBtn.addActionListener(e ->
-                JOptionPane.showMessageDialog(frame, "Quiz submitted! Scoring next.")
-        );
+        submitButton.addActionListener(e -> {
+            int score=calculateScore();
+            ResultsScreen(score);
+            saveScoreToDatabase(score);
+        });
     }
 
     //Results screen
@@ -390,6 +422,31 @@ public class QuizApp {
             public void mouseEntered(MouseEvent e) { btn.setBackground(hover); }
             public void mouseExited(MouseEvent e) { btn.setBackground(normal); }
         });
+    }
+
+    //Calculating score
+    private int calculateScore(){
+        int score = 0;
+
+        for(QuestionCard card : questionCards){
+            Questions question = card.getQuestionObject();
+            String userAnswer = card.getSelectedAnswer();
+
+            if(userAnswer.equals("")){continue;}
+            if(question.checkAnswer(userAnswer)){score++;}
+        }
+        return score;
+    }
+
+    //Save the score
+    private void saveScoreToDatabase(int score){
+        UserScoreRecord record = new UserScoreRecord(
+                userName,
+                score,
+                selectedDifficulty,
+                System.currentTimeMillis()
+        );
+        dbase.saveScore(record);
     }
     
     // Main
