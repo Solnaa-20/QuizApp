@@ -21,6 +21,9 @@ public class QuizApp {
     //Username
     private String userName;
 
+    //Quiz Manager
+    private QuizManager quizManager;
+
     //Database
     private PersistenceManager dbase = new PersistenceManager();
     private UserScoreRecord userScoreRecord;
@@ -35,6 +38,11 @@ public class QuizApp {
         frame.setSize(600, 450);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         dbase.initializeDatabase();
+
+        quizManager = new QuizManager();
+        quizManager.loadQuestions();
+        System.out.println("Questions loaded: " + quizManager.getTotalQuestions());
+
 
         cardLayout = new CardLayout();
         frame.setLayout(cardLayout);
@@ -281,13 +289,16 @@ public class QuizApp {
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            userName = username; //Save the name
 
             String difficultyValue = difficulty.getSelectedItem().toString();
             selectedDifficulty = difficultyValue.equals("EASY") ? Difficulty.EASY : Difficulty.HARD;
 
-            QuestionScreen();
-            cardLayout.show(frame.getContentPane(), "Question");
+           quizManager.startQuiz(username,selectedDifficulty);
+
+           userName=username;
+
+           QuestionScreen();
+           cardLayout.show(frame.getContentPane(), "Question");
         });
 
         startPanel.revalidate();
@@ -313,66 +324,42 @@ public class QuizApp {
         container.add(Box.createVerticalStrut(20));  // Gap before first card
 
 
-        //Retrieve questions
-        List<MultipleChoiceQuestion> allMcq = QuestionBank.getMultipleChoiceQuestions();
-        List<TrueFalseQuestion> allTrueAndFalse = QuestionBank.getTrueFalseQuestions();
+        // Get questions from QuizManager
+        List<Questions> quizQuestions = quizManager.getCurrentQuizQuestions();
 
-        //Filter by difficulty
-        List<MultipleChoiceQuestion> filteredMcq = new ArrayList<>();
-        List<TrueFalseQuestion> filteredTrueAndFalse = new ArrayList<>();
+        questionCards.clear();
 
-        for(MultipleChoiceQuestion mcq : allMcq){
-            if(mcq.getDifficultyLevel()==selectedDifficulty){
-                filteredMcq.add(mcq);
-            }
-        }
-        for(TrueFalseQuestion tfq : allTrueAndFalse){
-            if(tfq.getDifficultyLevel()==selectedDifficulty){
-                filteredTrueAndFalse.add(tfq);
-            }
-        }
-
-        //Shuffle questions
-        Collections.shuffle(filteredMcq);
-        Collections.shuffle(filteredTrueAndFalse);
-
-        //take questions
         int numbering = 1;
-        for(int i=0;i<10;i++){
-            MultipleChoiceQuestion question = filteredMcq.get(i);
 
-            container.add(Box.createVerticalStrut(40));
+        for (Questions q : quizQuestions) {
 
-            QuestionCard card = new QuestionCard(numbering+ ". " + question.getQuestionText(),question.getOptions());
+            String questionText = numbering + ". " + q.getQuestionText();
+            String[] options;
 
-            card.setQuestionObject(question);
+            if (q instanceof MultipleChoiceQuestion) {
+                options = ((MultipleChoiceQuestion) q).getOptions();
+            } else if (q instanceof TrueFalseQuestion) {
+                options = ((TrueFalseQuestion) q).getTAndFOptions();
+            } else {
+                continue;
+            }
+
+            QuestionCard card = new QuestionCard(questionText, options);
+            card.setQuestionObject(q);
             questionCards.add(card);
 
+            container.add(Box.createVerticalStrut(40));
             container.add(card);
-            container.add(Box.createVerticalStrut(40));
             numbering++;
         }
 
-        for(int i=0;i<10;i++){
-            TrueFalseQuestion question1 = filteredTrueAndFalse.get(i);
-            String[] options = question1.getTAndFOptions();
-
-            QuestionCard card1 = new QuestionCard(numbering+ ". " + question1.getQuestionText(),   // question text
-                    question1.getTAndFOptions());
-
-            card1.setQuestionObject(question1);
-            questionCards.add(card1);
-
-            container.add(card1);
-            container.add(Box.createVerticalStrut(40));
-            numbering++;
-        }
 
         JButton submitButton = new JButton("Submit Quiz");
         styleButton(submitButton);
         addHoverEffect(submitButton);
         submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        container.add(Box.createVerticalStrut(40));
         container.add(submitButton);
         container.add(Box.createVerticalStrut(30));
 
@@ -425,7 +412,7 @@ public class QuizApp {
         userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Score message
-        JLabel scoreLabel = new JLabel("Your Score: " + score + "/20");
+        JLabel scoreLabel = new JLabel("Your Score: " + score + "/10");
         scoreLabel.setFont(new Font("Arial", Font.BOLD, 35));
         scoreLabel.setForeground(Color.YELLOW);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -436,11 +423,27 @@ public class QuizApp {
         leaderboardPanel.setBorder(BorderFactory.createTitledBorder("Leaderboard"));
 
         List<UserScoreRecord> scores = quizManager.getLeaderboard();
+
+        scores.sort((a, b) -> Integer.compare(b.getScore(), a.getScore()));
+
+        // LIMIT results (Top 5)
+        scores = scores.stream().limit(5).toList();
+        int rank = 1;
+
         for(UserScoreRecord r : scores) {
-            JLabel row = new JLabel(String.format("%s: %d (%s)", r.getUserName(), r.getScore(), r.getDifficulty()));
+            JLabel row = new JLabel(String.format("%d. %s - %d (%s)", rank, r.getUserName().toUpperCase(), r.getScore(), r.getDifficulty()));
+            row.setFont(new Font("Times New Romans", Font.BOLD, 22));// bigger font
+            row.add(Box.createVerticalStrut(30));
+            row.setForeground(Color.WHITE);
             leaderboardPanel.add(row);
+            rank++;
         }
         leaderboardPanel.setOpaque(false);
+        leaderboardPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        leaderboardPanel.setBorder(
+                BorderFactory.createEmptyBorder(20, 20, 20, 20)
+        );
+
 
 
         // Back button
@@ -465,6 +468,8 @@ public class QuizApp {
         content.add(userLabel);
         content.add(Box.createVerticalStrut(20));
         content.add(scoreLabel);
+        content.add(Box.createVerticalStrut(40));
+        content.add(leaderboardPanel);
         content.add(Box.createVerticalStrut(40));
         content.add(backButton);
 
