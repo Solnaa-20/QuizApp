@@ -166,6 +166,10 @@ public class QuizApp {
                     }
                 });
 
+                btn.addActionListener(e->{
+                    selectedAnswer = optLabel.getText();
+                });
+
                 row.add(btn);
                 row.add(optLabel);
                 row.add(Box.createHorizontalGlue());
