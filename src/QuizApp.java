@@ -112,7 +112,7 @@ public class QuizApp {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
             // White rounded container
-            JPanel bg = new JPanel() {
+            JPanel background = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
