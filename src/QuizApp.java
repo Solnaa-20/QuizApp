@@ -157,7 +157,7 @@ public class QuizApp {
                 optLabel.setFont(new Font("Arial", Font.PLAIN, 18));
                 optLabel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
-                // Clicking the row selects the button
+                // Clicking the row selects the button and stores the answer
                 row.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
