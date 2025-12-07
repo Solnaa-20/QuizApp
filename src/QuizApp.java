@@ -421,6 +421,19 @@ public class QuizApp {
         scoreLabel.setForeground(Color.YELLOW);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+         //LEADERBOARD
+        JPanel leaderboardPanel = new JPanel();
+        leaderboardPanel.setLayout(new BoxLayout(leaderboardPanel, BoxLayout.Y_AXIS));
+        leaderboardPanel.setBorder(BorderFactory.createTitledBorder("Leaderboard"));
+
+        List<UserScoreRecord> scores = quizManager.getLeaderboard();
+        for(UserScoreRecord r : scores) {
+            JLabel row = new JLabel(String.format("%s: %d (%s)", r.getUserName(), r.getScore(), r.getDifficulty()));
+            leaderboardPanel.add(row);
+        }
+        leaderboardPanel.setOpaque(false);
+
+
         // Back button
         JButton backButton = new JButton("Back to Start");
         styleButton(backButton);
