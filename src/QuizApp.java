@@ -427,6 +427,12 @@ public class QuizApp {
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         backButton.addActionListener(e -> {
+            questionCards.clear();
+            questionPanel.removeAll();
+            questionPanel.revalidate();
+            questionPanel.repaint();
+
+            StartScreen();
             cardLayout.show(frame.getContentPane(), "Start");
         });
 
