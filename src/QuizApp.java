@@ -34,6 +34,7 @@ public class QuizApp {
         frame = new JFrame("Quiz Application");
         frame.setSize(600, 450);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dbase.initializeDatabase();
 
         cardLayout = new CardLayout();
         frame.setLayout(cardLayout);
