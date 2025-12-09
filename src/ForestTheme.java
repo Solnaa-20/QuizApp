@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 public class ForestTheme {
     // Colors
-    public static final Color PRIMARY_BG = new Color(34, 139, 34);
+    public static final Color PRIMARY_BG = new Color(30, 97, 66);
     public static final Color SECONDARY_BG = new Color(85, 107, 47);
     public static final Color ACCENT_COLOR = new Color(218, 165, 32);
     public static final Color BUTTON_COLOR = new Color(139, 69, 19);
@@ -22,3 +22,4 @@ public class ForestTheme {
     public static final Color GRADIENT_START = new Color(9, 48, 40);
     public static final Color GRADIENT_END = new Color(35, 122, 87);
 }
+// 24, 135, 87
