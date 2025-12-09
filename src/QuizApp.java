@@ -71,7 +71,7 @@ public class QuizApp {
     // CIRCLE BUTTON
     class CircleButton extends JToggleButton {
 
-        private Color normalColor = new Color(240, 240, 240);
+        private Color normalColor = ForestTheme.TEXT_COLOR;
         private Color selectedColor = ForestTheme.BUTTON_COLOR;
         private String letter;
 
@@ -134,7 +134,7 @@ public class QuizApp {
                     super.paintComponent(g);
                     Graphics2D g2 = (Graphics2D) g;
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g.setColor(Color.WHITE);
+                    g.setColor(ForestTheme.CARD_BG);
                     g.fillRoundRect(0, 0, getWidth(), getHeight(), 25, 25);
                 }
             };
@@ -145,7 +145,7 @@ public class QuizApp {
 
             // QUESTION TITLE
             JTextArea qLabel = new JTextArea(question);
-            qLabel.setFont(new Font("Arial", Font.BOLD, 20));
+            qLabel.setFont(ForestTheme.QUESTION_FONT);
             qLabel.setLineWrap(true);
             qLabel.setWrapStyleWord(true);
             qLabel.setEditable(false);
@@ -213,7 +213,7 @@ public class QuizApp {
 
         startPanel.removeAll();
         startPanel.setLayout(new BorderLayout());
-        startPanel.setBackground(new Color(20, 126, 21)); // green background
+        startPanel.setBackground(ForestTheme.PRIMARY_BG);
 
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
@@ -229,20 +229,20 @@ public class QuizApp {
         //Icon
         JLabel iconLabel = new JLabel("🌿");
         iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 60));
-        iconLabel.setForeground(Color.WHITE);
+        iconLabel.setForeground(Color.BLACK);
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
         // Subtitle
         JLabel subtitleLabel = new JLabel("Test your knowledge & learn something new!");
         subtitleLabel.setFont(ForestTheme.SUBTITLE_FONT);
-        subtitleLabel.setForeground(Color.WHITE);
+        subtitleLabel.setForeground(ForestTheme.TEXT_COLOR);
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //Username field and label
         JLabel usernameLabel = new JLabel("Enter username:");
         usernameLabel.setFont(ForestTheme.BUTTON_FONT);
-        usernameLabel.setForeground(Color.WHITE);
+        usernameLabel.setForeground(ForestTheme.TEXT_COLOR);
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField usernameField = new JTextField();
@@ -257,25 +257,27 @@ public class QuizApp {
         startButton.setMaximumSize(new Dimension(200, 50));
         styleButton(startButton);
         addHoverEffect(startButton);
-        startButton.setFont(ForestTheme.BUTTON_FONT);
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
         // Difficulty label
         JLabel difficultyLabel = new JLabel("Select Difficulty:");
         difficultyLabel.setFont(ForestTheme.BUTTON_FONT);
-        difficultyLabel.setForeground(Color.WHITE);
+        difficultyLabel.setForeground(ForestTheme.TEXT_COLOR);
         difficultyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Difficulty dropdown
         String[] levels = {"EASY", "HARD"};
         JComboBox<String> difficulty = new JComboBox<>(levels);
         difficulty.setFont(ForestTheme.BUTTON_FONT);
+        difficulty.setBackground(ForestTheme.ACCENT_COLOR);
+        difficulty.setForeground(ForestTheme.TEXT_COLOR);
         difficulty.setMaximumSize(new Dimension(200, 40));
         difficulty.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
         // Add spacing + components
+        content.add(Box.createVerticalStrut(60));
         content.add(iconLabel);
         content.add(Box.createVerticalStrut(10));
         content.add(titleLabel);
@@ -332,13 +334,13 @@ public class QuizApp {
 
         JLabel questionTitle = new JLabel("Question Time");
         questionTitle.setFont(ForestTheme.TITLE_FONT);
-        questionTitle.setForeground(Color.WHITE);
+        questionTitle.setForeground(ForestTheme.TEXT_COLOR);
         questionTitle.setOpaque(false);
         questionTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         container.add(Box.createVerticalStrut(40));
         container.add(questionTitle);
-        container.add(Box.createVerticalStrut(20));  // Gap before first card
+        container.add(Box.createVerticalStrut(40));  // Gap before first card
 
 
         // Get questions from QuizManager
@@ -374,10 +376,9 @@ public class QuizApp {
         submitButton.setMaximumSize(new Dimension(250, 60));
         styleButton(submitButton);
         addHoverEffect(submitButton);
-        submitButton.setFont(ForestTheme.BUTTON_FONT);
         submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        container.add(Box.createVerticalStrut(40));
+        container.add(Box.createVerticalStrut(50));
         container.add(submitButton);
         container.add(Box.createVerticalStrut(50));
 
@@ -421,19 +422,30 @@ public class QuizApp {
 
         JLabel resultTitle = new JLabel("Quiz Complete!");
         resultTitle.setFont(ForestTheme.TITLE_FONT);
-        resultTitle.setForeground(Color.WHITE);
+        resultTitle.setForeground(ForestTheme.TEXT_COLOR);
         resultTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JLabel userLabel;
         // Username message
-        JLabel userLabel = new JLabel("Well done, " + userName + "!");
+        if(score>=7){
+        userLabel = new JLabel("Well done, " + userName + "!");
+        }
+
+        else if(score>=5){
+            userLabel = new JLabel("Not bad, " + userName + "!");
+        }
+        else{
+            userLabel = new JLabel("Terrible, " + userName + ". Try again!");
+        }
+
         userLabel.setFont(ForestTheme.SUBTITLE_FONT);
-        userLabel.setForeground(Color.WHITE);
+        userLabel.setForeground(ForestTheme.TEXT_COLOR);
         userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Score message
         JLabel scoreLabel = new JLabel(score + "/" +quizManager.getTotalQuestions());
-        scoreLabel.setFont(new Font("Georgia", Font.BOLD, 35));
-        scoreLabel.setForeground(Color.YELLOW);
+        scoreLabel.setFont(ForestTheme.TITLE_FONT);
+        scoreLabel.setForeground(ForestTheme.ACCENT_COLOR);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
          //LEADERBOARD
@@ -451,12 +463,12 @@ public class QuizApp {
 
         for(UserScoreRecord r : scores) {
             JLabel row = new JLabel(String.format("%d. %s - %d (%s)", rank, r.getUserName().toUpperCase(), r.getScore(), r.getDifficulty()));
-            row.setFont(new Font("Segoe UI", Font.BOLD, 16));
-            row.setForeground(Color.WHITE);
+            row.setFont(new Font("Segoe UI", Font.BOLD, 20));
+            row.setForeground(ForestTheme.TEXT_COLOR);
             row.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             leaderboardPanel.add(row);
-            leaderboardPanel.add(Box.createVerticalStrut(5));
+            leaderboardPanel.add(Box.createVerticalStrut(10));
             rank++;
         }
         leaderboardPanel.setOpaque(false);
@@ -481,12 +493,13 @@ public class QuizApp {
         });
 
         // Add components
+        content.add(Box.createVerticalStrut(60));
         content.add(resultTitle);
-        content.add(Box.createVerticalStrut(20));
+        content.add(Box.createVerticalStrut(30));
         content.add(userLabel);
         content.add(Box.createVerticalStrut(30));
         content.add(scoreLabel);
-        content.add(Box.createVerticalStrut(40));
+        content.add(Box.createVerticalStrut(60));
         content.add(leaderboardPanel);
         content.add(Box.createVerticalStrut(40));
         content.add(backButton);
@@ -500,47 +513,23 @@ public class QuizApp {
 
     // STYLE FLAT BUTTON
     private void styleButton(JButton button) {
-        button.setFont(new Font("SansSerif", Font.BOLD, 20));
-        button.setBackground(new Color(0, 150, 136));
-        button.setForeground(Color.WHITE);
+        button.setFont(ForestTheme.BUTTON_FONT);
+        button.setBackground(ForestTheme.BUTTON_COLOR);
+        button.setForeground(ForestTheme.TEXT_COLOR);
         button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
-    private void addHoverEffect(JButton btn) {
-        Color normal = new Color(0, 150, 136);
-        Color hover = new Color(0, 170, 150);
+    private void addHoverEffect(JButton button) {
+        Color normal = ForestTheme.BUTTON_COLOR;
+        Color hover = ForestTheme.BUTTON_HOVER;
 
-        btn.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) { btn.setBackground(hover); }
-            public void mouseExited(MouseEvent e) { btn.setBackground(normal); }
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) { button.setBackground(hover); }
+            public void mouseExited(MouseEvent e) { button.setBackground(normal); }
         });
     }
 
-    //Calculating score
-    private int calculateScore(){
-        int score = 0;
-
-        for(QuestionCard card : questionCards){
-            Questions question = card.getQuestionObject();
-            String userAnswer = card.getSelectedAnswer();
-
-            if(userAnswer==null){continue;}
-            if(question.checkAnswer(userAnswer)){score++;}
-        }
-        return score;
-    }
-
-    //Save the score
-    private void saveScoreToDatabase(int score){
-        UserScoreRecord record = new UserScoreRecord(
-                userName,
-                score,
-                selectedDifficulty,
-                System.currentTimeMillis()
-        );
-        dbase.saveScore(record);
-    }
 
     // Main
     public static void main(String[] args) {

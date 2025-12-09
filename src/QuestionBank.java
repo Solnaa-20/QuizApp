@@ -8,7 +8,10 @@ public class QuestionBank {
 
 
     public static void loadQuestions() {
-        String[] mcQ1Options = {"Oxygen", "Nitrogen", "Carbon", "Dioxide"};
+        String[] mcQ1Options = {"Short-term changes in the weather",
+                "Long-term shifts in temperature and weather patterns",
+                "A sudden increase in global temperatures",
+                "Seasonal changes that happen every year"};
         MultipleChoiceQuestion mcQ1 = new MultipleChoiceQuestion(
                 "What is climate change?",
                 mcQ1Options,
@@ -16,11 +19,11 @@ public class QuestionBank {
                 Difficulty.EASY);
         multipleChoiceQuestions.add(mcQ1);
 
-        String[] mcQ2Options = {"Oxygen", "Nitrogen", "Carbon", "Dioxide"};
+        String[] mcQ2Options = {"Oxygen", "Nitrogen", "Carbon dioxide", "Dioxide"};
         MultipleChoiceQuestion mcQ2 = new MultipleChoiceQuestion(
                 "Which gas is a major greenhouse gas?",
                 mcQ2Options,
-                "Carbon",
+                "Carbon dioxide",
                 Difficulty.EASY);
         multipleChoiceQuestions.add(mcQ2);
 
@@ -82,7 +85,7 @@ public class QuestionBank {
                 Difficulty.EASY);
         multipleChoiceQuestions.add(mcQ9);
 
-        String[] mcQ10Options = {"weather is a subtle change while climate is drastic", "weather is short-term while climate is long-term", "weather can be forecasted but climate cannot", "They are the same thing"};
+        String[] mcQ10Options = {"Weather is a subtle change while climate is drastic", "Weather is short-term while climate is long-term", "Weather can be forecasted but climate cannot", "They are the same thing"};
         MultipleChoiceQuestion mcQ10 = new MultipleChoiceQuestion(
                 "How is weather different form climate",
                 mcQ10Options,
@@ -98,27 +101,27 @@ public class QuestionBank {
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ11);
 
-        String[] mcQ12Options = {"lightning", "deforestation", "burning of fossil fuels", "photosynthesis"};
+        String[] mcQ12Options = {"Lightning", "Deforestation", "Burning of fossil fuels", "Photosynthesis"};
         MultipleChoiceQuestion mcQ12 = new MultipleChoiceQuestion(
                 "This process is functional in removing carbon dioxide from the atmosphere",
                 mcQ12Options,
-                "photosynthesis",
+                "Photosynthesis",
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ12);
 
-        String[] mcQ13Options = {"water vapour", "ozone", "methane", "carbon dioxide"};
+        String[] mcQ13Options = {"Water vapour", "Ozone", "Methane", "Carbon dioxide"};
         MultipleChoiceQuestion mcQ13 = new MultipleChoiceQuestion(
                 "Which of the following is not a major greenhouse gas?",
                 mcQ13Options,
-                "ozone",
+                "Ozone",
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ13);
 
-        String[] mcQ14Options = {"carbon monoxide", "ozone", "fluorides", "sulphur dioxide"};
+        String[] mcQ14Options = {"Carbon monoxide", "Ozone", "Fluorides", "Sulphur dioxide"};
         MultipleChoiceQuestion mcQ14 = new MultipleChoiceQuestion(
                 "Ultraviolet radiations from sunlight causes a reaction producing",
                 mcQ14Options,
-                "ozone",
+                "Ozone",
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ14);
 
@@ -130,7 +133,7 @@ public class QuestionBank {
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ15);
 
-        String[] mcQ16Options = {"Sea level rising", "Loss of Arctic Sea Ice", "Less water vapour in the air", "More extreme weather events"};
+        String[] mcQ16Options = {"Sea level rising", "Loss of Arctic Sea Ice", "Less water vapour in the atmosphere", "More extreme weather events"};
         MultipleChoiceQuestion mcQ16 = new MultipleChoiceQuestion(
                 "Which of the following is not evidence of global warming ",
                 mcQ16Options,
@@ -138,31 +141,31 @@ public class QuestionBank {
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ16);
 
-        String[] mcQ17Options = {"Adequate rainfall", "pure air", "deficiency of freshwater", "less soil pollution"};
+        String[] mcQ17Options = {"Adequate rainfall", "Pure air", "Deficiency in freshwater", "Less soil pollution"};
         MultipleChoiceQuestion mcQ17 = new MultipleChoiceQuestion(
                 "Which of the following is a result of climate change? ",
                 mcQ17Options,
-                "deficiency in fresh water",
+                "deficiency in freshwater",
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ17);
 
-        String[] mcQ18Options = {"surface temperature ", "precipitation", "atmospheric conditions", "changes in seasonal variation"};
+        String[] mcQ18Options = {"Surface temperature ", "Precipitation", "Atmospheric conditions", "Changes in seasonal variation"};
         MultipleChoiceQuestion mcQ18 = new MultipleChoiceQuestion(
                 "Which of the following is used to determine global warming but not climate change? ",
                 mcQ18Options,
-                "surface temperatures",
+                "Surface temperature",
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ18);
 
-        String[] mcQ19Options = {"more polar bears", "release of trapped methane and CO2", "increased ice cream sales", "faster glacier formation"};
+        String[] mcQ19Options = {"More polar bears", "Release of trapped methane and CO2", "Increased ice cream sales", "Faster glacier formation"};
         MultipleChoiceQuestion mcQ19 = new MultipleChoiceQuestion(
                 "What is a major consequence of Arctic permafrost thawing due to warming",
                 mcQ19Options,
-                "release of trapped methane and CO2 ",
+                "Release of trapped methane and CO2",
                 Difficulty.HARD);
         multipleChoiceQuestions.add(mcQ19);
 
-        String[] mcQ20Options = {"agriculture", "transport", "forestry", "energy supply"};
+        String[] mcQ20Options = {"Agriculture", "Transport", "Forestry", "Energy supply"};
         MultipleChoiceQuestion mcQ20 = new MultipleChoiceQuestion(
                 "What is the following activities contribute the most to carbon emission globally?",
                 mcQ20Options,
@@ -237,12 +240,12 @@ public class QuestionBank {
 
         TrueFalseQuestion tfQ15 = new TrueFalseQuestion(
                 "Global warming is mainly caused by natural variations in earth`s orbit",
-                "True", Difficulty.HARD);
+                "False", Difficulty.HARD);
         trueFalseQuestions.add(tfQ15);
 
         TrueFalseQuestion tfQ16 = new TrueFalseQuestion(
                 "Increase in green house gases can result in an increase in pH level and water",
-                "True", Difficulty.HARD);
+                "False", Difficulty.HARD);
         trueFalseQuestions.add(tfQ16);
 
         TrueFalseQuestion tfQ17 = new TrueFalseQuestion(
@@ -262,7 +265,7 @@ public class QuestionBank {
 
         TrueFalseQuestion tfQ20 = new TrueFalseQuestion(
                 "Actions on adaptation to climate change receive more investment than actions on mitigation.",
-                "True", Difficulty.HARD);
+                "False", Difficulty.HARD);
         trueFalseQuestions.add(tfQ20);
     }
 
